@@ -8,3 +8,9 @@ __pycache__/
 .vscode/
 
 .env
+settings.json
+
+build/
+dist/
+
+*.spec
