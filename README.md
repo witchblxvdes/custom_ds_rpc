@@ -21,11 +21,11 @@ A customizable Discord Rich Presence application written in Python.
 
 1. Clone the repository:
 
-   git clone https://github.com/witchblxvdes/discord-rich-presence.git
+   git clone https://github.com/witchblxvdes/custom_ds_rpce.git
 
 2. Navigate to the project directory:
 
-   cd discord-rich-presence
+   cd custom_ds_rpc
 
 3. Create a virtual environment:
 
