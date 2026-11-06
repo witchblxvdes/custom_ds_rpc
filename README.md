@@ -1,11 +1,10 @@
-
 # Custom DS RPC
 
 A customizable Discord Rich Presence application written in Python.
 
 ## About
 
-Custom DS RPC allows users to customize their Discord activity by changing activity details, state, and images.
+Custom DS RPC allows users to customize their Discord activity by changing activity details, state, images, and custom buttons.
 
 The project includes both a console version and a graphical interface built with PySide6.
 
@@ -14,6 +13,7 @@ The project includes both a console version and a graphical interface built with
 - Connects to Discord Rich Presence.
 - Customize activity details and state.
 - Select large and small images from available Discord assets.
+- Customize two Discord activity buttons with your own labels and URLs.
 - Save and restore application settings.
 - Reset settings to default values.
 - Dark-themed graphical interface.
@@ -101,7 +101,11 @@ The executable will be available in the `dist` directory.
 
 Application settings are stored in `settings.json`.
 
-The file is created automatically and contains activity details, state, and selected image keys.
+The file is created automatically and contains activity details, state, selected image keys, and custom button settings.
+
+The two Discord activity buttons can be customized directly in the GUI by changing their labels and URLs.
+
+Use the **Reset Settings** button to restore the default configuration.
 
 ## License
 
