@@ -1,3 +1,4 @@
+
 import json
 import sys
 from pathlib import Path
@@ -24,8 +25,13 @@ class MainWindow(QWidget):
 
         self.discord_rpc = DiscordRPC()
 
+        self.default_button_1_label = "GitHub"
+        self.default_button_1_url = "https://github.com/witchblxvdes/custom_ds_rpc"
+        self.default_button_2_label = "Tap on me ^^"
+        self.default_button_2_url = "https://www.youtube.com/watch?v=vZIXSQlzJKA"
+
         self.setWindowTitle("Custom DS RPC")
-        self.resize(650, 550)
+        self.resize(650, 750)
 
         self.layout = QVBoxLayout()
         self.layout.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -101,6 +107,38 @@ class MainWindow(QWidget):
 
         self.layout.addLayout(self.images_layout)
 
+        self.custom_buttons_label = QLabel("Custom Buttons")
+        self.custom_buttons_label.setObjectName("sectionTitle")
+        self.layout.addWidget(self.custom_buttons_label)
+
+        self.button_1_label = QLabel("Button 1 Label")
+        self.layout.addWidget(self.button_1_label)
+
+        self.button_1_label_input = QLineEdit()
+        self.button_1_label_input.setText(self.default_button_1_label)
+        self.layout.addWidget(self.button_1_label_input)
+
+        self.button_1_url_label = QLabel("Button 1 URL")
+        self.layout.addWidget(self.button_1_url_label)
+
+        self.button_1_url_input = QLineEdit()
+        self.button_1_url_input.setText(self.default_button_1_url)
+        self.layout.addWidget(self.button_1_url_input)
+
+        self.button_2_label = QLabel("Button 2 Label")
+        self.layout.addWidget(self.button_2_label)
+
+        self.button_2_label_input = QLineEdit()
+        self.button_2_label_input.setText(self.default_button_2_label)
+        self.layout.addWidget(self.button_2_label_input)
+
+        self.button_2_url_label = QLabel("Button 2 URL")
+        self.layout.addWidget(self.button_2_url_label)
+
+        self.button_2_url_input = QLineEdit()
+        self.button_2_url_input.setText(self.default_button_2_url)
+        self.layout.addWidget(self.button_2_url_input)
+
         self.buttons_layout = QHBoxLayout()
         self.buttons_layout.setSpacing(10)
 
@@ -132,6 +170,13 @@ class MainWindow(QWidget):
                 font-size: 24px;
                 font-weight: bold;
                 padding-bottom: 10px;
+            }
+
+            QLabel#sectionTitle {
+                color: #ffffff;
+                font-size: 17px;
+                font-weight: bold;
+                padding-top: 8px;
             }
 
             QLineEdit {
@@ -203,11 +248,23 @@ class MainWindow(QWidget):
             Qt.ItemDataRole.UserRole
         )
 
+        buttons = [
+            {
+                "label": self.button_1_label_input.text(),
+                "url": self.button_1_url_input.text()
+            },
+            {
+                "label": self.button_2_label_input.text(),
+                "url": self.button_2_url_input.text()
+            }
+        ]
+
         self.discord_rpc.update(
             details=details,
             state=state,
             large_image=large_image,
-            small_image=small_image
+            small_image=small_image,
+            buttons=buttons
         )
 
         self.save_settings()
@@ -221,6 +278,11 @@ class MainWindow(QWidget):
         self.large_image_gallery.setCurrentRow(0)
         self.small_image_gallery.setCurrentRow(1)
 
+        self.button_1_label_input.setText(self.default_button_1_label)
+        self.button_1_url_input.setText(self.default_button_1_url)
+        self.button_2_label_input.setText(self.default_button_2_label)
+        self.button_2_url_input.setText(self.default_button_2_url)
+
         self.save_settings()
 
     def save_settings(self):
@@ -232,7 +294,11 @@ class MainWindow(QWidget):
             ),
             "small_image": self.small_image_gallery.currentItem().data(
                 Qt.ItemDataRole.UserRole
-            )
+            ),
+            "button_1_label": self.button_1_label_input.text(),
+            "button_1_url": self.button_1_url_input.text(),
+            "button_2_label": self.button_2_label_input.text(),
+            "button_2_url": self.button_2_url_input.text()
         }
 
         with open(self.get_settings_path(), "w", encoding="utf-8") as file:
@@ -249,6 +315,19 @@ class MainWindow(QWidget):
 
         self.details_input.setText(settings.get("details", ""))
         self.state_input.setText(settings.get("state", ""))
+
+        self.button_1_label_input.setText(
+            settings.get("button_1_label", self.default_button_1_label)
+        )
+        self.button_1_url_input.setText(
+            settings.get("button_1_url", self.default_button_1_url)
+        )
+        self.button_2_label_input.setText(
+            settings.get("button_2_label", self.default_button_2_label)
+        )
+        self.button_2_url_input.setText(
+            settings.get("button_2_url", self.default_button_2_url)
+        )
 
         large_image = settings.get("large_image")
         small_image = settings.get("small_image")

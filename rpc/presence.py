@@ -1,6 +1,7 @@
+
 import time
 
-from pypresence.presence import Presence
+from pypresence import Presence
 
 
 class DiscordRPC:
@@ -16,7 +17,14 @@ class DiscordRPC:
         self.rpc.connect()
         self.connected = True
 
-    def update(self, details, state, large_image, small_image):
+    def update(
+        self,
+        details,
+        state,
+        large_image,
+        small_image,
+        buttons=None
+    ):
         if not self.connected:
             self.connect()
 
@@ -25,7 +33,8 @@ class DiscordRPC:
             state=state or "^_^",
             large_image=large_image,
             small_image=small_image,
-            start=self.start_time
+            start=self.start_time,
+            buttons=buttons
         )
 
     def close(self):
